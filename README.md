@@ -7,7 +7,6 @@
 
 使用方式
 
-public void button(View view){
 
 QuickScanManager.getQuickScanManager().Init(this).getAllResult(editText.getText().toString(), new QuickScanManager.OnResultListener() {
             @Override
@@ -22,9 +21,7 @@ QuickScanManager.getQuickScanManager().Init(this).getAllResult(editText.getText(
             public void ScanError(String msg) {
                 Toast.makeText(getApplicationContext(),msg,0).show();
             }
-        });
-    }
-        
+        });  
     @Override
     protected void onDestroy() {
         super.onDestroy();
