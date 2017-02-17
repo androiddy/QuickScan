@@ -1,5 +1,6 @@
 package com.duyin.quickscan;
 
+import android.app.Activity;
 import android.content.Context;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -20,9 +21,9 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class QuickScanManager {
     private static QuickScanManager quickScanManager = new QuickScanManager();
-    private Context context;
+    private Activity activity;
     protected CompositeSubscription mCompositeSubscription;
-    private QuickScanApi quickScanApi = QuickScanApi.getInstance(QuickScanService.getQuickScanService());;
+    private QuickScanApi quickScanApi = QuickScanApi.getInstance(QuickScanService.getQuickScanService());
     protected MaterialDialog mMaterialDialog = null;
 
     private QuickScanManager(){
@@ -31,13 +32,13 @@ public class QuickScanManager {
     public static QuickScanManager getQuickScanManager(){
         return quickScanManager;
     }
-    public QuickScanManager Init(Context context){
-        this.context = context;
+    public QuickScanManager Init(Activity activity){
+        this.activity = activity;
         return this;
     }
     public void getAllResult(final String end, final OnResultListener onResultListener){
         showload();
-        Subscription typebook = quickScanApi.getAllResult(context, end)
+        Subscription typebook = quickScanApi.getAllResult(activity.getApplicationContext(), end)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new RxSubscriber<List<ScanResult>>() {
@@ -80,7 +81,7 @@ public class QuickScanManager {
         showProgressDeterminateDialog();
     }
     public void showProgressDeterminateDialog() {
-        mMaterialDialog = new MaterialDialog.Builder(context)
+        mMaterialDialog = new MaterialDialog.Builder(activity)
                 .content("正在扫描中...")
                 .progress(true, 0)
                 .cancelable(false)
@@ -95,6 +96,6 @@ public class QuickScanManager {
     }
     public void remove(){
         unSubscribe();
-        context = null;
+        activity = null;
     }
 }
