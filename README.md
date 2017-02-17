@@ -7,8 +7,8 @@
 
 使用方式
 
-
-QuickScanManager.getQuickScanManager().Init(this).getAllResult(editText.getText().toString(), new QuickScanManager.OnResultListener() {
+  public void button(View view){
+        QuickScanManager.getQuickScanManager().Init(this).getAllResult(editText.getText().toString(), new QuickScanManager.OnResultListener() {
             @Override
             public void ScanSuccess(List<ScanResult> lists) {
                 list.clear();
@@ -23,6 +23,7 @@ QuickScanManager.getQuickScanManager().Init(this).getAllResult(editText.getText(
                 Toast.makeText(getApplicationContext(),msg,0).show();
             }
         });
+    }
         
          @Override
     protected void onDestroy() {
